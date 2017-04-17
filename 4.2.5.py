@@ -2,37 +2,37 @@ my_file = open("textfile.txt", 'r')
 text = my_file.read()
 text = text.lower()
 words = {}
-k = 0
-r = ' !\".\n,—'
+letters = 0
+separator = ' !\".\n,—'
 
 for i in range(len(text)-2):
-    if r.find(text[i]) == -1:
-        k += 1
-    if r.find(text[i+1]) != -1 and k != 0:
-        if words.get(text[i - k + 1:i + 1]) == None:
-            words[(text[i - k + 1:i + 1])] = 1
+    if separator.find(text[i]) == -1:
+        letters += 1
+    if separator.find(text[i+1]) != -1 and letters != 0:
+        if words.get(text[i - letters + 1:i + 1]) == None:
+            words[(text[i - letters + 1:i + 1])] = 1
         else:
-            words[(text[i - k + 1:i + 1])] += 1
-        k = 0
+            words[(text[i - letters + 1:i + 1])] += 1
+        letters = 0
         i += 1
 
 print(words)
 
-fmax = 0
+max_repeat = 0
 for key in words:
-    if words[key] > fmax:
-        fmax = words[key]
+    if words[key] > max_repeat:
+        max_repeat = words[key]
 
 print('Top-20 words: ')
-i = 0
-while i < 20:
+top_words = 0
+while top_words < 20:
     for key in words:
-        if words[key] == fmax:
+        if words[key] == max_repeat:
             print(key, words[key])
-            i += 1
-            if i == 20:
+            top_words += 1
+            if top_words == 20:
                 break
-    fmax -= 1
+    max_repeat -= 1
 
 
 my_file.close()
